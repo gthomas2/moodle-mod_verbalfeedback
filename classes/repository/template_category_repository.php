@@ -184,7 +184,7 @@ class template_category_repository {
         $headers = [];
         $rs = $DB->get_recordset('verbalfeedback_local_string', ['type' => localized_string_type::TEMPLATE_CATEGORY_HEADER]);
         foreach ($rs as $row) {
-            if (!\array_key_exists($row->foreignkey, $headers)) {
+            if (!array_key_exists($row->foreignkey, $headers)) {
                 $headers[$row->foreignkey] = [];
             }
             $headers[$row->foreignkey][] = new localized_string($row->languageid, $row->id, $row->string);
