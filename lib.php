@@ -448,16 +448,20 @@ function verbalfeedback_reset_userdata($data) {
 
     $status = [];
 
+    $componentstr = get_string('modulenameplural', 'verbalfeedback');
+
     if (!empty($data->reset_verbalfeedback)) {
         $verbalfeedbackssql = "SELECT vf.id " .
                        "FROM " . tables::INSTANCE_TABLE . " vf " .
                        "WHERE vf.course=?";
 
-        $DB->delete_records_select(tables::RESPONSE_TABLE, "instanceid IN ($verbalfeedbackssql)", [$data->courseid]);
+        $DB->delete_records_select(
+            tables::RESPONSE_TABLE, "instanceid IN ($verbalfeedbackssql)", [$data->courseid]);
         $status[] = ['component' => $componentstr, 'item' => get_string('removeresponses', 'verbalfeedback'),
             'error' => false, ];
 
-        $DB->delete_records_select(tables::SUBMISSION_TABLE, "instanceid IN ($verbalfeedbackssql)", [$data->courseid]);
+        $DB->delete_records_select(
+            tables::SUBMISSION_TABLE, "instanceid IN ($verbalfeedbackssql)", [$data->courseid]);
         $status[] = ['component' => $componentstr, 'item' => get_string('removesubmissions', 'verbalfeedback'),
             'error' => false, ];
 
